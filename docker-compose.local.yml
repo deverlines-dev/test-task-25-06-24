@@ -1,0 +1,50 @@
+services:
+
+  nginx:
+    extends:
+      file: docker-compose.services.yml
+      service: nginx
+    ports:
+      - '6001:6001'
+    volumes:
+      - ./docker/nginx/etc/nginx/templates-local:/etc/nginx/templates
+    depends_on:
+      - php
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+
+  php:
+    extends:
+      file: docker-compose.services.yml
+      service: php
+    depends_on:
+      - mysql-app
+    # entrypoint: /run/docker-php-octane-entrypoint.sh
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+
+  node:
+    extends:
+      file: docker-compose.services.yml
+      service: node
+    ports:
+      - '5173:5173'
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+
+  mysql-app:
+    extends:
+      file: docker-compose.services.yml
+      service: mysql-app
+    ports:
+      - '3306:3306'
+    deploy:
+      resources:
+        limits:
+          cpus: '4'

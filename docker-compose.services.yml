@@ -1,0 +1,99 @@
+services:
+
+  nginx:
+    build:
+      dockerfile: docker/nginx.Dockerfile
+      context: .
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./laravel:/var/www/laravel
+      - ./docker/nginx/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/etc/nginx/includes/php.conf:/etc/nginx/includes/php.conf
+    environment:
+      TZ: 'Europe/Moscow'
+      DOMAIN_APP: '${DOMAIN_APP}'
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1024M
+
+  php:
+    build:
+      dockerfile: docker/php.Dockerfile
+      context: .
+    user: '${USER_GID}:${USER_GID}'
+    volumes:
+      - ./laravel:/var/www/laravel
+      - ./docker/php/usr/local/etc/php/conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./docker/php/usr/local/etc/php/conf.d/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+    environment:
+      TZ: 'Europe/Moscow'
+      PHP_INI_TIMEZONE: 'Europe/Moscow'
+
+      APP_NAME: 'app'
+      APP_DOMAIN: '${DOMAIN_APP}'
+      APP_URL: '${HTTP_PROTOCOL}://${DOMAIN_APP}'
+
+      DB_CONNECTION: 'mysql'
+      DB_HOST: mysql-app
+      DB_PORT: '3306'
+      DB_DATABASE: '${MYSQL_DB}'
+      DB_USERNAME: '${MYSQL_USER}'
+      DB_PASSWORD: '${MYSQL_PASSWORD}'
+
+      MAIL_MAILER: 'smtp'
+      MAIL_ENCRYPTION: null
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1024M
+
+  mysql-app:
+    image: mysql:8.4.5
+    volumes:
+      - ./data/mysql-app/data:/var/lib/mysql:rw
+    environment:
+      TZ: 'Europe/Moscow'
+      MYSQL_DATABASE: ${MYSQL_DB}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1024M
+
+  node:
+    build:
+      dockerfile: docker/node.Dockerfile
+      context: .
+    user: '${USER_GID}:${USER_GID}'
+    volumes:
+      - ./laravel:/var/www/laravel
+    environment:
+      TZ: 'Europe/Moscow'
+      APP_URL: '${HTTP_PROTOCOL}://${DOMAIN_APP}'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  certbot:
+    image: certbot/certbot:v3.1
+    volumes:
+      - ./data/certbot/data/letsencrypt:/etc/letsencrypt
+      - ./data/certbot/data/certbot:/var/www/certbot
+    environment:
+      TZ: 'Europe/Moscow'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 64M
