@@ -29,7 +29,7 @@ class User extends AbstractModel implements AuthenticatableContract, Authorizabl
     protected function casts(): array
     {
         return [
-            'row_id' => 'string',
+            'rowid' => 'string',
             'name' => 'string',
             'password' => 'hashed',
         ];

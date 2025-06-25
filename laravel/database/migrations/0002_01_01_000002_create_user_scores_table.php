@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('user_scores', function (Blueprint $table) {
             $table->id();
-            $table->binary('row_id', 16)->nullable(false)->unique();
 
             $table->foreignId('user_id')->constrained('users');
 

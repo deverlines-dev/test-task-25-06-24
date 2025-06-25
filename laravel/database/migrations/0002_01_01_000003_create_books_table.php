@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->binary('row_id', 16)->nullable(false)->unique();
+            $table->binary('rowid', 16)->nullable(false)->unique();
 
             $table->string('title');
             $table->string('description'); // Возможно нужно тип text

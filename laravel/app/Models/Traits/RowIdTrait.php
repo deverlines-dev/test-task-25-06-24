@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Models\Traits;
 
 use App\Models\AbstractModel;
+use Illuminate\Support\Str;
 
 /**
- * @property string $row_id
+ * @property string $rowid
  *
  * @mixin AbstractModel
  */
@@ -15,12 +16,19 @@ trait RowIdTrait
 {
     public function getRowId(): string
     {
-        return $this->row_id;
+        return $this->rowid;
     }
 
-    public function setRowId(string $row_id): static
+    public function setRowId(string $rowid): static
     {
-        $this->row_id = $row_id;
+        $this->rowid = $rowid;
+
+        return $this;
+    }
+
+    public function makeRowId(): static
+    {
+        $this->rowid = Str::uuid()->getBytes();
 
         return $this;
     }

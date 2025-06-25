@@ -11,7 +11,7 @@ return new class extends Migration
         // Переименовал в user_bookmarks, т.принадлежит к пользователю
         Schema::create('user_bookmarks', function (Blueprint $table) {
             $table->id();
-            $table->binary('row_id', 16)->nullable(false)->unique();
+            $table->binary('rowid', 16)->nullable(false)->unique();
 
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('book_id')->constrained('books');
@@ -20,6 +20,8 @@ return new class extends Migration
 
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent()->useCurrentOnUpdate();
+
+            $table->unique(['user_id', 'book_id']);
         });
     }
 

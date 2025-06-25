@@ -24,7 +24,7 @@ class Book extends AbstractModel
     protected function casts(): array
     {
         return [
-            'row_id' => 'string',
+            'rowid' => 'string',
             'title' => 'string',
             'description' => 'string',
             'pages_count' => 'int',

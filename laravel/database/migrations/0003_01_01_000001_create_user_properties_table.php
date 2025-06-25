@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('user_properties', function (Blueprint $table) {
             $table->id();
-            $table->binary('row_id', 16)->nullable(false)->unique();
 
             $table->foreignId('user_id')->constrained('users');
 
@@ -18,9 +17,6 @@ return new class extends Migration
             $table->string('property_value'); // в данном случае будет поддержка только string типов
 
             $table->unique(['user_id', 'property_key', 'property_value']);
-
-            $table->timestamp('created_at')->nullable()->useCurrent();
-            $table->timestamp('updated_at')->nullable()->useCurrent()->useCurrentOnUpdate();
         });
     }
 

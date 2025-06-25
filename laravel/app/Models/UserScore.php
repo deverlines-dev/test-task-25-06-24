@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Models\Traits\RowIdTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -14,8 +13,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class UserScore extends AbstractModel
 {
-    use RowIdTrait;
-
     public function getScore(): int
     {
         return $this->score;
@@ -39,7 +36,7 @@ class UserScore extends AbstractModel
     protected function casts(): array
     {
         return [
-            'row_id' => 'string',
+            'rowid' => 'string',
             'score' => 'int',
         ];
     }

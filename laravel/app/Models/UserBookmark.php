@@ -20,7 +20,7 @@ class UserBookmark extends AbstractModel
     protected function casts(): array
     {
         return [
-            'row_id' => 'string',
+            'rowid' => 'string',
             'bookmark' => 'string',
         ];
     }

@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->binary('row_id', 16)->nullable(false)->unique();
+            $table->binary('rowid', 16)->nullable(false)->unique();
 
             $table->string('name');
             $table->string('password')->nullable(); // Если авторизация не через пароль, то null

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Models\Traits\RowIdTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -15,12 +14,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class UserProperty extends AbstractModel
 {
-    use RowIdTrait;
+    public $timestamps = false;
 
     protected function casts(): array
     {
         return [
-            'row_id' => 'string',
             'property_key' => 'string',
             'property_value' => 'string',
         ];
