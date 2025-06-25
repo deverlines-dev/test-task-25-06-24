@@ -15,15 +15,15 @@ class DatabaseSeeder extends Seeder
 
         $console->writeln('seed users');
         new UserFactory()
-            ->count(100)
-            ->withScores(fake()->numberBetween(10, 20))
+            ->count(1000)
+            ->withScores(fake()->numberBetween(50, 100))
             ->withProperties()
             ->create();
 
         $console->writeln('seed books');
         new BookFactory()
-            ->count(200)
-            ->withUserBookmark(fake()->numberBetween(10, 20))
+            ->count(1000)
+            ->withUserBookmark(fake()->numberBetween(50, 100))
             ->create();
     }
 }
