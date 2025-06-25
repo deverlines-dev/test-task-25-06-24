@@ -1,13 +1,11 @@
 <?php
 
-
-use App\Data\TopScopeData;
 use App\Http\Repositories\UserRepository;
 use App\Models\User;
 use App\Models\UserBookmark;
+use App\Models\UserProperty;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
 use Laravel\Prompts\Output\ConsoleOutput;
 use Tests\TestCase;
 
@@ -86,8 +84,8 @@ class Task3Test extends TestCase
                 $this->assertEquals($bookId, $userBookmark->book_id);
             });
 
-            $user->properties->each(function (\App\Models\UserProperty $userProperty) {
-                // dd($userProperty);
+            $user->properties->each(function (UserProperty $userProperty) {
+
             });
         });
 

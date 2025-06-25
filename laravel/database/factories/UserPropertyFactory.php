@@ -13,18 +13,18 @@ class UserPropertyFactory extends Factory
 {
     protected $model = UserProperty::class;
 
-    public function withType(string $key): static
+    public function withType(string $key): array
     {
         return match ($key) {
-            'phone' => $this->state(fn () => [
+            'phone' => [
                 'property_key' => 'phone',
                 'property_value' => fake()->unique()->phoneNumber(),
-            ]),
-            'email' => $this->state(fn () => [
+            ],
+            'email' => [
                 'property_key' => 'email',
                 'property_value' => fake()->unique()->safeEmail(),
-            ]),
-            default => $this->state(fn () => throw new Exception("Не удалось заполнить данные, тип $key не найден"))
+            ],
+            default => throw new Exception("Не удалось заполнить данные, тип $key не найден")
         };
     }
 
@@ -33,6 +33,6 @@ class UserPropertyFactory extends Factory
      */
     public function definition(): array
     {
-        return $this->withType(fake()->randomKey(['phone', 'email']));
+        return $this->withType(fake()->randomElement(['phone', 'email']));
     }
 }
