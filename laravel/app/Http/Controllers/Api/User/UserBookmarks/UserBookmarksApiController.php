@@ -35,6 +35,7 @@ readonly class UserBookmarksApiController extends AbstractApiController
 
         $response = new UserBookmarksListJsonResponse();
         $response->setPagination(PaginationResponseData::fromPaginator($userBookmarks));
+
         $userBookmarks->each(function (UserBookmark $userBookmark) use ($response) {
             $response->addItem(new UserBookmarksListItemData(
                 id: $userBookmark->getId(),
