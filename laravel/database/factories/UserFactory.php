@@ -29,6 +29,6 @@ class UserFactory extends Factory
 
     public function withProperties(): static
     {
-        return $this->has(new UserScoreFactory()->count(1), 'scores');
+        return $this->has(new UserScoreFactory()->count(1), 'properties');
     }
 }

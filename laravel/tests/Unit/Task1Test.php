@@ -135,7 +135,7 @@ class Task1Test extends TestCase
         $memoryExecution = (memory_get_usage() - $memory) / 1024 / 1024 . 'mb';
         $memoryPeakExecution = (memory_get_peak_usage() - $memoryPeak) / 1024 / 1024 . 'mb';
 
-        $console->writeln("v1");
+        $console->writeln("task 1 - v1");
         $console->writeln("timeExecution: $timeExecution");
         $console->writeln("memoryExecution: $memoryExecution");
         $console->writeln("memoryPeakExecution: $memoryPeakExecution");
@@ -236,7 +236,7 @@ class Task1Test extends TestCase
         $memoryExecution = (memory_get_usage() - $memory) / 1024 / 1024 . 'mb';
         $memoryPeakExecution = (memory_get_peak_usage() - $memoryPeak) / 1024 / 1024 . 'mb';
 
-        $console->writeln("v2");
+        $console->writeln("task 1 - v2");
         $console->writeln("timeExecution: $timeExecution");
         $console->writeln("memoryExecution: $memoryExecution");
         $console->writeln("memoryPeakExecution: $memoryPeakExecution");
